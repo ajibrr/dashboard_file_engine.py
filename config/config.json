@@ -1,0 +1,32 @@
+{
+    "data": {
+        "input_file": "C:\\Users\\Ibrrc\\Downloads\\NSE\\NIFTY_20260924_DASHBOARD.json",
+        "output_directory": "C:\\Users\\Ibrrc\\Downloads\\NSE"
+    },
+
+    "timeframes": [
+        "12s",
+        "1min",
+        "3min",
+        "5min"
+    ],
+
+    "indicators": {
+        "sma": [
+            9,
+            44,
+            200
+        ],
+        "rsi": {
+            "enabled": true,
+            "period": 14
+        }
+    },
+
+    "oi_features": {
+        "cumulative_ce": true,
+        "cumulative_pe": true,
+        "ce_oi_change": true,
+        "pe_oi_change": true
+    }
+}
