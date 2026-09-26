@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environment
+venv/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+
+# Data files
+*.json
+*.jsonl
+*.csv
+*.log
+
+# Generated output
+output/
+results/

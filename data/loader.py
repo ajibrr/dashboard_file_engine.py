@@ -1,42 +1,42 @@
 import json
-import pandas as pd
+from pathlib import Path
 
 
-class NiftyDataLoader:
+class DashboardDataLoader:
 
     def __init__(self, file_path):
-        self.file_path = file_path
+        self.file_path = Path(file_path)
 
     def load(self):
-        with open(self.file_path, "r", encoding="utf-8") as f:
+        if not self.file_path.exists():
+            raise FileNotFoundError(
+                f"Dashboard file not found: {self.file_path}"
+            )
+
+        with self.file_path.open(
+            "r",
+            encoding="utf-8"
+        ) as f:
             data = json.load(f)
 
         return data
 
-    def load_seconds(self):
+    def load_nifty_seconds(self):
         data = self.load()
 
-        df = pd.DataFrame(data["nifty_seconds"])
+        if "nifty_seconds" not in data:
+            raise KeyError(
+                "nifty_seconds not found in dashboard JSON"
+            )
 
-        df["timestamp"] = pd.to_datetime(df["timestamp"])
-
-        df = df.sort_values("timestamp")
-        df = df.drop_duplicates("timestamp")
-
-        df = df.set_index("timestamp")
-
-        return df
+        return data["nifty_seconds"]
 
     def load_flow(self):
         data = self.load()
 
-        df = pd.DataFrame(data["flow"])
+        if "flow" not in data:
+            raise KeyError(
+                "flow not found in dashboard JSON"
+            )
 
-        df["timestamp"] = pd.to_datetime(df["timestamp"])
-
-        df = df.sort_values("timestamp")
-        df = df.drop_duplicates("timestamp")
-
-        df = df.set_index("timestamp")
-
-        return df
+        return data["flow"]
